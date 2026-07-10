@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- Ensures the page scales correctly on mobile devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language Translator</title>
+
+    <!-- Link our CSS file using Flask's url_for, NOT a hardcoded path -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <!-- Wrapping everything in a container makes CSS layout easier later -->
+    <div class="app-container">
+
+        <!-- Header holds the title and dark mode toggle -->
+        <header class="app-header">
+            <h1>🌍 Language Translator</h1>
+
+            <!-- Dark mode toggle button. We'll add the click behavior in JS later. -->
+            <button id="darkModeToggle" aria-label="Toggle dark mode">🌙</button>
+        </header>
+
+        <main class="translator-card">
+
+            <!-- Row containing language selectors and swap button -->
+            <div class="language-controls">
+
+                <!-- Source language dropdown -->
+                <select id="sourceLang" aria-label="Source language">
+                    <option value="auto">Detect Language</option>
+                    <option value="en">English</option>
+                    <option value="hi">Hindi</option>
+                    <option value="ta">Tamil</option>
+                    <option value="fr">French</option>
+                    <option value="es">Spanish</option>
+                    <!-- More languages can be added later, or generated dynamically -->
+                </select>
+
+                <!-- Swap button switches source and target languages -->
+                <button id="swapLang" aria-label="Swap languages">⇄</button>
+
+                <!-- Target language dropdown -->
+                <select id="targetLang" aria-label="Target language">
+                    <option value="en">English</option>
+                    <option value="hi">Hindi</option>
+                    <option value="ta">Tamil</option>
+                    <option value="fr">French</option>
+                    <option value="es">Spanish</option>
+                </select>
+            </div>
+
+            <!-- Text areas: input on the left, output on the right -->
+            <div class="text-areas">
+
+                <!-- Input section -->
+                <div class="text-box">
+                    <textarea id="inputText" placeholder="Enter text to translate..." maxlength="500"></textarea>
+                    <!-- Character counter, updated live by JS -->
+                    <span id="charCount">0 / 500</span>
+                </div>
+
+                <!-- Output section -->
+                <div class="text-box">
+                    <textarea id="outputText" placeholder="Translation will appear here..." readonly></textarea>
+
+                    <div class="output-actions">
+                        <!-- Copy translated text to clipboard -->
+                        <button id="copyBtn" aria-label="Copy translated text">📋 Copy</button>
+                        <!-- Text-to-speech for translated text -->
+                        <button id="speakBtn" aria-label="Listen to translation">🔊 Speak</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Translate button, triggers the API call in JS -->
+            <button id="translateBtn" class="translate-btn">Translate</button>
+
+            <!-- Loading spinner, hidden by default, shown during API call -->
+            <div id="loadingSpinner" class="spinner hidden"></div>
+
+            <!-- Error message area, hidden unless something goes wrong -->
+            <p id="errorMessage" class="error-message hidden"></p>
+
+        </main>
+    </div>
+
+    <!-- Link our JavaScript file. Placed at the end of <body> so HTML loads first. -->
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
